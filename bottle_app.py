@@ -1,34 +1,46 @@
-
 #####################################################################
 ### Assignment skeleton
 ### You can alter the below code to make your own dynamic website.
 ### The landing page for assignment 3 should be at /
 #####################################################################
 
-from bottle import route, run, default_app, debug
+from bottle import error, route, run, default_app, debug, static_file
+import indexHTML
 
-def htmlify(title,text):
+def htmlify(title, text):
     page = """
-        <!doctype html>
-        <html lang="en">
-            <head>
-                <meta charset="utf-8" />
-                <title>%s</title>
-            </head>
-            <body>
-            %s
-            </body>
-        </html>
-
-    """ % (title,text)
+        some html shit
+        
+        """
     return page
 
-def index():
-    return htmlify("My lovely website",
-                   "This is going to be an awesome website, when it is finished. komedi")
-                    
-route('/', 'GET', index)
 
+@route('/')  # Code on the left equals to => route('/', 'GET', index)
+def index():
+    return indexHTML.get_index()
+
+@route('/<pagename>')
+def returnPage(pagename):
+    return static_file(pagename, root='./oldHTMLfiles/')
+
+@route('/css/<filepath>')
+def css_static(filepath):
+    return static_file(filepath, root='./css')
+
+
+@route('/img/<filename>')
+def server_static(filename):
+    return static_file(filename, root='./img')
+
+
+@route('/favicon.ico')
+def server_static():
+    return static_file('favicon.ico', root='.')
+
+
+@error(404)
+def error404(error):
+    return "OOPS"
 #####################################################################
 ### Don't alter the below code.
 ### It allows this website to be hosted on Heroku
@@ -41,5 +53,4 @@ debug(True)
 app = default_app()
 # The below code is necessary for running this bottle app standalone on your computer.
 if __name__ == "__main__":
-  run()
-
+    run()

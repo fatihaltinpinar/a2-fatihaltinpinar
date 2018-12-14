@@ -1,0 +1,17 @@
+div.polaroid{
+	margin-top: 80px;
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: monospace;
+}
+img.member{
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	width: 300px;
+	height: 300px;
+}
