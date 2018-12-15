@@ -19,9 +19,11 @@ def htmlify(title, text):
 def index():
     return indexHTML.get_index()
 
-@route('/<pagename>')
-def returnPage(pagename):
-    return static_file(pagename, root='./oldHTMLfiles/')
+
+@route('/<page_name>')
+def return_page(page_name):
+    return static_file(page_name, root='./oldHTMLfiles/')
+
 
 @route('/css/<filepath>')
 def css_static(filepath):
