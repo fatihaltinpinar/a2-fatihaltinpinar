@@ -6,7 +6,8 @@
 
 from bottle import error, route, run, default_app, debug, static_file
 import indexHTML
-
+from bottle import post, request
+import hash_password
 
 def htmlify(title, text):
     page = """
@@ -15,10 +16,39 @@ def htmlify(title, text):
         """
     return page
 
+### TESTING FORM STUFF
+comments = []
 
+def login():
+    page =  '''
+   <form action="/login" method="post">
+            Comment: <input name="comment" type="text" />
+            Password: <input name="password" type="password" />
+            <input value="Login" type="submit" />
+    </form>
+    <ul>
+    '''
+    for comment in comments:
+        page = page + '<li>' + comment + '</li>'
+    page = page + '</ul>'
+    return page
+
+
+@route('/login', method="POST")
+def do_login():
+    comment = str(request.forms.get('comment'))
+    password = request.forms.get('password')
+    if hash_password.create_hash(password) == 'b493d48364afe44d11c0165cf470a4164d1e2609911ef998be868d46ade3de4e':
+        comments.insert(0, comment)
+        return login()
+    else:
+        return login()
+
+### TESTING FORM STUFF
 @route('/')  # Code on the left equals to => route('/', 'GET', index)
 def index():
-    return indexHTML.get_index()
+    return login()
+    # return indexHTML.get_index()
 
 
 @route('/<page_name>')
@@ -43,7 +73,10 @@ def server_static():
 
 @error(404)
 def error404(error):
-    return "OOPS"
+    return "OOPS" + str(error)
+
+
+
 #####################################################################
 ### Don't alter the below code.
 ### It allows this website to be hosted on Heroku
