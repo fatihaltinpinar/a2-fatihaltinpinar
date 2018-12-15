@@ -7,6 +7,7 @@
 from bottle import error, route, run, default_app, debug, static_file
 import indexHTML
 
+
 def htmlify(title, text):
     page = """
         some html shit
