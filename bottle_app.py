@@ -38,7 +38,7 @@ def login():
 def do_login():
     comment = str(request.forms.get('comment'))
     password = request.forms.get('password')
-    if hash_password.create_hash(password) == 'b493d48364afe44d11c0sadaa4164d1e2609911ef998be868d46ade3de4e':
+    if hash_password.create_hash(password) == 'b493d48364afe44d11c0165cf470a4164d1e2609911ef998be868d46ade3de4e':
         comments.insert(0, comment)
         return login()
     else:
