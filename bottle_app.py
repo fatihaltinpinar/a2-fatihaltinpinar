@@ -22,16 +22,17 @@ def submit():
     if hash_password.create_hash(password) == 'b493d48364afe44d11c0165cf470a4164d1e2609911ef998be868d46ade3de4e':
 
         # comment_text = request.forms.get('commentText')  returns byte string
+
         # Use this code instead of one above since it returns utf-8
         # encoded string rather that byte string like the code above does
-        comment_text = request.forms.commentText # return utf-8 encoded string
+        comment_text = request.forms.commentText  # returns utf-8 encoded string
 
-        print('comment text = ' , comment_text)
+        print('comment text = ', comment_text)
 
         if comment_text != '':
 
             comment = {'commentText': comment_text, 'time': datetime.now()}
-
+            print('username = ', request.forms.username, '\n'*10)
             if request.forms.anonymous == 'yes' or request.forms.username == '':
                 comment['username'] = 'Anonymous'
             else:
