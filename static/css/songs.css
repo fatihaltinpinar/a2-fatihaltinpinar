@@ -29,16 +29,17 @@ iframe.play{
 	height: 42px;
 }
 
-.sendComment{
-	margin-top:20px;
-	height:100px;
+.commentSection{
+	margin-top: 10px;
 }
-
 .sendComment > * {
-	display:inline;
-}
+	display: inline-block;
+	width: 30%;
 
-.usernameSection > *{
-	display:block;
-	height:33%;
+}
+#commentBox{
+	width: 55%;
+	height: 100px;
+	float:right;
+	vertical-align: top;
 }
