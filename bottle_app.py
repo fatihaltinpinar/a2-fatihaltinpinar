@@ -5,9 +5,12 @@
 #####################################################################
 
 from bottle import error, route, run, default_app, debug, static_file
-import indexHTML
 from bottle import post, request
-import hash_password
+
+
+import hash_password # This code has taken from link below.
+# https://bitbucket.org/damienjadeduff/hashing_example/raw/master/hash_password.py
+
 
 def htmlify(title, text):
     page = """
@@ -17,7 +20,10 @@ def htmlify(title, text):
     return page
 
 ### TESTING FORM STUFF
+
+
 comments = []
+
 
 def login():
     page =  '''
@@ -44,31 +50,31 @@ def do_login():
     else:
         return login()
 
+
 ### TESTING FORM STUFF
 @route('/')  # Code on the left equals to => route('/', 'GET', index)
 def index():
-    return login()
-    # return indexHTML.get_index()
+    return static_file('index.html', root='./static')
 
 
 @route('/<page_name>')
 def return_page(page_name):
-    return static_file(page_name, root='./oldHTMLfiles/')
+    return static_file(page_name, root='./static')
 
 
 @route('/css/<filepath>')
 def css_static(filepath):
-    return static_file(filepath, root='./css')
+    return static_file(filepath, root='./static/css')
 
 
 @route('/img/<filename>')
 def server_static(filename):
-    return static_file(filename, root='./img')
+    return static_file(filename, root='./static/img')
 
 
 @route('/favicon.ico')
 def server_static():
-    return static_file('favicon.ico', root='.')
+    return static_file('favicon.ico', root='.static/')
 
 
 @error(404)
