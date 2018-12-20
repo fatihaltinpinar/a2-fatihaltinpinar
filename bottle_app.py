@@ -5,7 +5,7 @@
 #####################################################################
 
 from bottle import error, route, run, default_app, debug, static_file
-from bottle import post, request
+from bottle import post, request, redirect
 
 
 import hash_password # This code has taken from link below.
@@ -26,13 +26,35 @@ comments = []
 
 
 def login():
-    page =  '''
-   <form action="/login" method="post">
-            Comment: <input name="comment" type="text" />
-            Password: <input name="password" type="password" />
+    page ='''
+    
+   <form action="/submit" method="post">
+            Username: <input id="usernameBox" name="username" type="text"/> 
+            
+            <input name="anonymous" id="anonymousBox" type="checkbox" 
+            value="Yes"> I want to be anonymous </br>
+            
+            Comment: <input name="comment" type="text" />   </br>
+            Password: <input name="password" type="password" /> </br>
             <input value="Login" type="submit" />
     </form>
     <ul>
+    <script>
+        var anonymousBox = document.getElementById("anonymousBox");
+        var usernameBox = document.getElementById("usernameBox");
+        
+        anonymousBox.addEventListener( 'change', function() {
+            
+            if (anonymousBox.checked == true){
+                usernameBox.disabled = true;
+            }else {
+                usernameBox.disabled = false;
+            }     
+        
+        });
+               
+        
+    </script>
     '''
     for comment in comments:
         page = page + '<li>' + comment + '</li>'
@@ -40,21 +62,24 @@ def login():
     return page
 
 
-@route('/login', method="POST")
+@route('/submit', method="POST")
 def do_login():
+    form = request.forms.getall()
+    print(form)
     comment = str(request.forms.get('comment'))
     password = request.forms.get('password')
     if hash_password.create_hash(password) == 'b493d48364afe44d11c0165cf470a4164d1e2609911ef998be868d46ade3de4e':
         comments.insert(0, comment)
-        return login()
+        redirect("/")
     else:
-        return login()
+        redirect("/")
 
 
 ### TESTING FORM STUFF
 @route('/')  # Code on the left equals to => route('/', 'GET', index)
 def index():
-    return static_file('index.html', root='./static')
+    return login()
+    # return static_file('index.html', root='./static')
 
 
 @route('/<page_name>')
