@@ -5,86 +5,56 @@
 #####################################################################
 
 from bottle import error, route, run, default_app, debug, static_file
-from bottle import post, request, redirect
-
+from bottle import request, redirect
+from songs import songs
+from datetime import datetime
 
 import hash_password # This code has taken from link below.
 # https://bitbucket.org/damienjadeduff/hashing_example/raw/master/hash_password.py
 
-
-def htmlify(title, text):
-    page = """
-        some html shit
-        
-        """
-    return page
-
-### TESTING FORM STUFF
-
-
 comments = []
 
 
-def login():
-    page ='''
-    
-   <form action="/submit" method="post">
-            Username: <input id="usernameBox" name="username" type="text"/> 
-            
-            <input name="anonymous" id="anonymousBox" type="checkbox" 
-            value="Yes"> I want to be anonymous </br>
-            
-            Comment: <input name="comment" type="text" />   </br>
-            Password: <input name="password" type="password" /> </br>
-            <input value="Login" type="submit" />
-    </form>
-    <ul>
-    <script>
-        var anonymousBox = document.getElementById("anonymousBox");
-        var usernameBox = document.getElementById("usernameBox");
-        
-        anonymousBox.addEventListener( 'change', function() {
-            
-            if (anonymousBox.checked == true){
-                usernameBox.disabled = true;
-            }else {
-                usernameBox.disabled = false;
-            }     
-        
-        });
-               
-        
-    </script>
-    '''
-    for comment in comments:
-        page = page + '<li>' + comment + '</li>'
-    page = page + '</ul>'
-    return page
-
-
 @route('/submit', method="POST")
-def do_login():
-    form = request.forms.getall()
-    print(form)
-    comment = str(request.forms.get('comment'))
+def submit():
     password = request.forms.get('password')
+
     if hash_password.create_hash(password) == 'b493d48364afe44d11c0165cf470a4164d1e2609911ef998be868d46ade3de4e':
-        comments.insert(0, comment)
-        redirect("/")
-    else:
-        redirect("/")
+
+        # comment_text = request.forms.get('commentText')  returns byte string
+        # Use this code instead of one above since it returns utf-8
+        # encoded string rather that byte string like the code above does
+        comment_text = request.forms.commentText # return utf-8 encoded string
+
+        print('comment text = ' , comment_text)
+
+        if comment_text != '':
+
+            comment = {'commentText': comment_text, 'time': datetime.now()}
+
+            if request.forms.anonymous == 'yes' or request.forms.username == '':
+                comment['username'] = 'Anonymous'
+            else:
+                comment['username'] = request.forms.username
+                # this code returns byte string so it is disabled
+                # comment['username'] = request.forms.get('username')
+            comments.insert(0, comment)
+            print(request.forms.commentText677)
+    redirect('/songs.html')
 
 
 ### TESTING FORM STUFF
 @route('/')  # Code on the left equals to => route('/', 'GET', index)
 def index():
-    return login()
-    # return static_file('index.html', root='./static')
+    return static_file('index.html', root='./static')
 
 
 @route('/<page_name>')
 def return_page(page_name):
-    return static_file(page_name, root='./static')
+    if page_name == 'songs.html':
+        return songs(comments)
+    else:
+        return static_file(page_name, root='./static')
 
 
 @route('/css/<filepath>')
@@ -99,14 +69,12 @@ def server_static(filename):
 
 @route('/favicon.ico')
 def server_static():
-    return static_file('favicon.ico', root='.static/')
+    return static_file('favicon.ico', root='./static/')
 
 
 @error(404)
 def error404(error):
     return "OOPS" + str(error)
-
-
 
 #####################################################################
 ### Don't alter the below code.

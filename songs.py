@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+def songs(comments):
+    # noinspection PyStringFormat
+
+    comment_list = '<ul>'
+
+    for comment in comments:
+        comment_list = comment_list + '<li><ul class="comment"><li class="username">{}</li>'.format(comment['username'])
+        comment_list = comment_list + '<li class="time">Sent on {:%d %b %y at %H:%M:%S}</li>'.format(comment['time'])
+        comment_list = comment_list + '<li class="commentText">{}</li></ul></li>'.format(comment['commentText'])
+
+    comment_list = comment_list + '</ul>'
+
+    page = '''<!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Songs of the Branches</title>
@@ -243,7 +255,7 @@
 					<td><iframe class="play" src="https://bandcamp.com/EmbeddedPlayer/album=4236207006/size=small/bgcol=333333/linkcol=0f91ff/artwork=none/track=3898061310/transparent=true/"></iframe></td>
 				</tr>
 			</table>	
-
+            
 			<div class="commentSection">
 				<div class="sendComment">
 					<form action="/submit" method="post">
@@ -278,10 +290,6 @@
 				</div>
 				<div class="allComments">
 					%s
-					
-					<div class="comment">
-						<p>
-					</div>
 				</div>
 			</div>
 
@@ -294,4 +302,7 @@
 		</div>
 	</div>
 </body>
-</html>
+</html>''' % comment_list
+
+    return page
+
