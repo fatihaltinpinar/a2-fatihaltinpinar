@@ -28,3 +28,17 @@ iframe.play{
 	width: 100%;
 	height: 42px;
 }
+
+.sendComment{
+	margin-top:20px;
+	height:100px;
+}
+
+.sendComment > * {
+	display:inline;
+}
+
+.usernameSection > *{
+	display:block;
+	height:33%;
+}

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -243,46 +244,37 @@
 					<td><iframe class="play" src="https://bandcamp.com/EmbeddedPlayer/album=4236207006/size=small/bgcol=333333/linkcol=0f91ff/artwork=none/track=3898061310/transparent=true/"></iframe></td>
 				</tr>
 			</table>	
-
+            
 			<div class="commentSection">
 				<div class="sendComment">
 					<form action="/submit" method="post">
-					<span class="usernameSection">
-					<input id="usernameBox" name="username" placeholder="Username" type="text"/> 
-						<input name="anonymous" id="anonymousBox" type="checkbox" value="yes"> Anonymous
-					</span>
-					
-					<input id="passwordBox"name="password" type="password" placeholder="Password"/> </br>
-				
-            
-            <input id="commentBox" name="commentText" type="text" placeholder="Enter your toughts here!"/>
-            <input value="Send Comment" type="submit" />
-				</form>
-				<ul>
-				<script>
-					var anonymousBox = document.getElementById("anonymousBox");
-					var usernameBox = document.getElementById("usernameBox");
-					
-					anonymousBox.addEventListener( 'change', function() {
-						
-						if (anonymousBox.checked == true){
-							usernameBox.disabled = true;
-						}else {
-							usernameBox.disabled = false;
-						}     
-					
-					});
-						   
-					
-				</script>
+						<div class="usernameSection">
+							<input id="usernameBox" name="username" placeholder="Author" type="text"/>
+							<div><input name="anonymous" id="anonymousBox" type="checkbox" value="yes"> Write anonymously </div>
+							<input id="passwordBox"name="password" type="password" placeholder="Password"/>
+						</div></br>
+						<input id="commentBox" name="commentText" type="text" placeholder="Enter your toughts here!"/>
+						<input value="Send Comment" type="submit" />
+					</form>
+
 				</div>
 				<div class="allComments">
-					%s
-					
-					<div class="comment">
-						<p>
-					</div>
+					<ul></ul>
 				</div>
+				<script>
+						var anonymousBox = document.getElementById("anonymousBox");
+						var usernameBox = document.getElementById("usernameBox");
+
+						anonymousBox.addEventListener( 'change', function() {
+
+							if (anonymousBox.checked == true){
+								usernameBox.disabled = true;
+							}else {
+								usernameBox.disabled = false;
+							}
+
+						});
+					</script>
 			</div>
 
 			

@@ -42,7 +42,6 @@ def submit():
     redirect('/songs.html')
 
 
-### TESTING FORM STUFF
 @route('/')  # Code on the left equals to => route('/', 'GET', index)
 def index():
     return static_file('index.html', root='./static')
