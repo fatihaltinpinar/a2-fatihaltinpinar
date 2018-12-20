@@ -262,9 +262,10 @@ def songs(comments):
 					<span class="usernameSection">
 					<input id="usernameBox" name="username" placeholder="Username" type="text"/> 
 						<input name="anonymous" id="anonymousBox" type="checkbox" value="yes"> Anonymous
-					</span>
+						<input id="passwordBox"name="password" type="password" placeholder="Password"/>
+					</span></br>
 					
-					<input id="passwordBox"name="password" type="password" placeholder="Password"/> </br>
+					
 				
             
             <input id="commentBox" name="commentText" type="text" placeholder="Enter your toughts here!"/>
