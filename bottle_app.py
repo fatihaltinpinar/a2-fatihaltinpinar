@@ -39,7 +39,6 @@ def submit():
                 # this code returns byte string so it is disabled
                 # comment['username'] = request.forms.get('username')
             comments.insert(0, comment)
-            print(request.forms.commentText677)
     redirect('/songs.html')
 
 

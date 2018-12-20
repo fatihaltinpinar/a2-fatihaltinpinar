@@ -1,6 +1,6 @@
 def songs(comments):
     # noinspection PyStringFormat
-
+    print('all comments =', comments)
     comment_list = '<ul>'
 
     for comment in comments:
