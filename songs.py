@@ -5,7 +5,7 @@ def songs(comments):
 
     for comment in comments:
         comment_list = comment_list + '<li><ul class="comment"><li class="username">{}</li>'.format(comment['username'])
-        comment_list = comment_list + '<li class="time">Sent on {:%d %b %y at %H:%M:%S}</li>'.format(comment['time'])
+        comment_list = comment_list + '<li class="time">Sent on {}</li>'.format(comment['time'])
         comment_list = comment_list + '<li class="commentText">{}</li></ul></li>'.format(comment['commentText'])
 
     comment_list = comment_list + '</ul>'

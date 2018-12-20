@@ -8,11 +8,19 @@ from bottle import error, route, run, default_app, debug, static_file
 from bottle import request, redirect
 from songs import songs
 from datetime import datetime
+import json
 
 import hash_password # This code has taken from link below.
 # https://bitbucket.org/damienjadeduff/hashing_example/raw/master/hash_password.py
 
-comments = []
+with open('comments') as file:
+        comments = json.load(file)
+
+
+def add_comment(comment):
+        comments.insert(0, comment)
+        with open('comments', 'w') as file:
+            json.dump(comments, file)
 
 
 @route('/submit', method="POST")
@@ -27,19 +35,23 @@ def submit():
         # encoded string rather that byte string like the code above does
         comment_text = request.forms.commentText  # returns utf-8 encoded string
 
-        print('comment text = ', comment_text)
+# print('comment text = ', comment_text)
 
         if comment_text != '':
-
-            comment = {'commentText': comment_text, 'time': datetime.now()}
-            print('username = ', request.forms.username, '\n'*10)
+            time = datetime.now().strftime('%d %b %y at %H:%M:%S')
+            comment = {'commentText': comment_text, 'time': time}
+# print('username = ', request.forms.username, '\n'*10)
             if request.forms.anonymous == 'yes' or request.forms.username == '':
                 comment['username'] = 'Anonymous'
             else:
                 comment['username'] = request.forms.username
                 # this code returns byte string so it is disabled
                 # comment['username'] = request.forms.get('username')
-            comments.insert(0, comment)
+
+            add_comment(comment)
+             # comments.insert(0, comment)
+
+
     redirect('/songs.html')
 
 
