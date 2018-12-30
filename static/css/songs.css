@@ -75,3 +75,13 @@ form > * {
 	font-size: 0.75em;
 	float: right;
 }
+
+.allComments li {
+	padding-top: 14px;
+}
+.commentText {
+	padding-top: 2px;
+	text-indent: 1em;
+	width: 100%;
+	word-break: break-word;
+}

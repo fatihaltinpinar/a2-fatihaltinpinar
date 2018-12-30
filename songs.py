@@ -7,7 +7,7 @@ def songs(comments):
     # Added for list access
     for i in range(len(comments)):
         comment = comments[i]
-        comment_list = comment_list + '<li><span class="username">{} </span>'.format(comment['username'])
+        comment_list = comment_list + '<li><span class="username">{}</span>'.format(comment['username'])
         comment_list = comment_list + '<span class="time">Sent on {:%H:%M:%S %d/%m/%y} </span>'.format(comment['time'])
         comment_list = comment_list + '<div class="commentText">{}</div></li>'.format(comment['commentText'])
 
