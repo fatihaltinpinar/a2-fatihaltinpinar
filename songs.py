@@ -270,7 +270,7 @@ def songs(comments):
 						<div class="usernameSection">
 							<input id="usernameBox" name="username" placeholder="Author" type="text"/>
 							<div><input name="anonymous" id="anonymousBox" type="checkbox" value="yes"> Write anonymously </div>
-							<input id="passwordBox"name="password" type="password" placeholder="Password"/>
+							<input id="passwordBox" name="password" type="password" placeholder="Password"/>
 							<input value="Send Comment" type="submit" />
 						</div>
 						<input id="commentBox" name="commentText" type="text" placeholder="Enter your toughts here!"/>
