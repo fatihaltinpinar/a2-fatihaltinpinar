@@ -3,10 +3,17 @@ def songs(comments):
     print('all comments =', comments)
     comment_list = '<ul>'
 
-    for comment in comments:
-        comment_list = comment_list + '<li><ul class="comment"><li class="username">{}</li>'.format(comment['username'])
-        comment_list = comment_list + '<li class="time">Sent on {}</li>'.format(comment['time'])
-        comment_list = comment_list + '<li class="commentText">{}</li></ul></li>'.format(comment['commentText'])
+    # for comment in comments:
+    # Added for list access
+    for i in range(len(comments)):
+        comment = comments[i]
+        comment_list = comment_list + '<li><span class="username">{} </span>'.format(comment['username'])
+        comment_list = comment_list + '<span class="time">Sent on {:%H:%M:%S %d/%m/%y} </span>'.format(comment['time'])
+        comment_list = comment_list + '<div class="commentText">{}</div></li>'.format(comment['commentText'])
+
+        # comment_list += '<li><strong>{}</strong> said at {:%H:%M:%S %d/%m/%y} </br> {}</li>'.format(comment['username'],
+        #                                                                                             comment['time'],
+        #                                                                                             comment['commentText'])
 
     comment_list = comment_list + '</ul>'
 
@@ -264,9 +271,9 @@ def songs(comments):
 							<input id="usernameBox" name="username" placeholder="Author" type="text"/>
 							<div><input name="anonymous" id="anonymousBox" type="checkbox" value="yes"> Write anonymously </div>
 							<input id="passwordBox"name="password" type="password" placeholder="Password"/>
-						</div></br>
+							<input value="Send Comment" type="submit" />
+						</div>
 						<input id="commentBox" name="commentText" type="text" placeholder="Enter your toughts here!"/>
-						<input value="Send Comment" type="submit" />
 					</form>
 
 				</div>
@@ -301,4 +308,5 @@ def songs(comments):
 </html>''' % comment_list
 
     return page
+
 
