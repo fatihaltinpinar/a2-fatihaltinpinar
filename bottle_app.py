@@ -15,18 +15,22 @@ import hash_password # This code has taken from link below.
 comments = []
 
 
+def check_pass(password):
+    return hash_password.create_hash(password) == 'b493d48364afe44d11c0165cf47' + '0a4164d1e2609911ef998be868d46ade3de4e'
+
+
 @route('/submit', method="POST")
 def submit():
     password = request.forms.get('password')
 
-    if hash_password.create_hash(password) == 'b493d48364afe44d11c0165cf470a4164d1e2609911ef998be868d46ade3de4e':
+    if check_pass(password):
 
         # comment_text = request.forms.get('commentText')  returns byte string
         # Use this code instead of one above since it returns utf-8
         # encoded string rather that byte string like the code above does
         comment_text = request.forms.commentText # return utf-8 encoded string
 
-        print('comment text = ' , comment_text)
+        print('comment text = ', comment_text)
 
         if comment_text != '':
 
